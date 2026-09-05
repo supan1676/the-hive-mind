@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://c4f8ub57mpoij"]
+
+[ext_resource type="Script" uid="uid://dfkph1kcdlkbf" path="res://Scenes/EnemyAI.gd" id="1_0830c"]
+[ext_resource type="PackedScene" uid="uid://u78ajana3yf8" path="res://KayKit_Skeletons_1.1_FREE/characters/gltf/Skeleton_Warrior.glb" id="1_hghv2"]
+[ext_resource type="AnimationLibrary" uid="uid://c7ihckstvmdvd" path="res://movement.res" id="3_287tu"]
+[ext_resource type="AnimationLibrary" uid="uid://b0j85oxid27p7" path="res://combat.res" id="3_0830c"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_afpow"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ghaa6"]
+animation = &"combat/Idle_A"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1dp5w"]
+animation = &"combat/Idle_A"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_auwsv"]
+animation = &"combat/Throw"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8uf12"]
+animation = &"movement/Walking_A"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ta2yt"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m4x7e"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_haro7"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_56vhr"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_po0sg"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_vt4ob"]
+states/End/position = Vector2(901, 100)
+states/Start/position = Vector2(202, 100)
+states/combat_Idle_A/node = SubResource("AnimationNodeAnimation_1dp5w")
+states/combat_Idle_A/position = Vector2(358, 105)
+"states/combat_Idle_A 2/node" = SubResource("AnimationNodeAnimation_ghaa6")
+"states/combat_Idle_A 2/position" = Vector2(742, 100)
+states/combat_Throw/node = SubResource("AnimationNodeAnimation_auwsv")
+states/combat_Throw/position = Vector2(562, 193)
+states/movement_Walking_A/node = SubResource("AnimationNodeAnimation_8uf12")
+states/movement_Walking_A/position = Vector2(543, 100)
+transitions = ["combat_Idle_A 2", "combat_Throw", SubResource("AnimationNodeStateMachineTransition_ta2yt"), "combat_Throw", "combat_Idle_A", SubResource("AnimationNodeStateMachineTransition_m4x7e"), "combat_Idle_A", "movement_Walking_A", SubResource("AnimationNodeStateMachineTransition_haro7"), "movement_Walking_A", "combat_Idle_A 2", SubResource("AnimationNodeStateMachineTransition_56vhr"), "Start", "combat_Idle_A", SubResource("AnimationNodeStateMachineTransition_po0sg")]
+
+[node name="Enemy" type="CharacterBody3D" unique_id=504550200]
+script = ExtResource("1_0830c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=21138309]
+shape = SubResource("CapsuleShape3D_afpow")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1751077140]
+path_height_offset = -9.92
+avoidance_enabled = true
+
+[node name="Sensors" type="Node3D" parent="." unique_id=1238147692]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Visuals" parent="." unique_id=806408592 instance=ExtResource("1_hghv2")]
+
+[node name="Skeleton3D" parent="Visuals/Rig_Medium" index="0"]
+bones/1/position = Vector3(0, 0.3792416, 0)
+bones/2/rotation = Quaternion(1.1360991e-10, 8.467554e-09, 0.015993353, 0.99987215)
+bones/3/rotation = Quaternion(1.12743245e-10, -8.447747e-09, -0.01599335, 0.99987215)
+bones/4/position = Vector3(-0.21200734, 0.13413227, 8.5732175e-08)
+bones/4/rotation = Quaternion(-0.7234533, 0.0031708027, 0.38007143, 0.57632536)
+bones/5/rotation = Quaternion(4.3652417e-08, 3.4759605e-08, 0.7154202, 0.6986945)
+bones/7/rotation = Quaternion(-0.40737623, 0.24676234, 0.015352174, 0.8791572)
+bones/8/rotation = Quaternion(1.6805918e-09, -1.6805916e-09, 0.7071068, 0.7071067)
+bones/9/position = Vector3(0.21200734, 0.13413227, 8.480239e-08)
+bones/9/rotation = Quaternion(-0.70189565, -0.1951974, -0.4758476, 0.4927572)
+bones/10/rotation = Quaternion(3.596146e-08, -5.5959436e-08, -0.68628794, 0.7273299)
+bones/12/rotation = Quaternion(-0.30984488, -0.40765104, -0.02266627, 0.85866356)
+bones/13/rotation = Quaternion(1.6806099e-09, 1.680615e-09, -0.7071068, 0.7071067)
+bones/14/rotation = Quaternion(0, 2.283618e-20, 0, 1)
+bones/15/position = Vector3(0.17094506, 0.09309196, -0.0073270816)
+bones/15/rotation = Quaternion(0.9739948, -6.0705005e-08, -3.5256775e-10, -0.22657049)
+bones/16/rotation = Quaternion(0.0028554574, 6.904256e-08, -1.9830453e-09, 0.99999595)
+bones/17/rotation = Quaternion(-0.56940615, 1.23922455e-08, -1.5320039e-07, 0.8220564)
+bones/18/rotation = Quaternion(1.0790619e-08, 0.91777575, -0.3970992, 7.626966e-08)
+bones/19/position = Vector3(-0.17094508, 0.10408261, 0.007327107)
+bones/19/rotation = Quaternion(0.7713227, 3.4154482e-07, -1.6504668e-08, 0.63644433)
+bones/20/rotation = Quaternion(0.82915527, -3.8596234e-08, 5.758198e-07, 0.55901843)
+bones/21/rotation = Quaternion(-0.22291009, 9.488033e-09, -2.9402383e-07, 0.97483903)
+bones/22/rotation = Quaternion(3.5405616e-08, 0.9201289, -0.3916159, 6.983155e-08)
+
+[node name="head" parent="Visuals/Rig_Medium/Skeleton3D" index="0"]
+transform = Transform3D(0.99999994, -7.450581e-09, 4.684786e-11, 7.450581e-09, 0.9999999, -4.5201487e-10, -4.6846083e-11, 4.5201498e-10, 1, -0.011993096, 1.2148118, 3.0825903e-10)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1699433654]
+root_node = NodePath("../Visuals")
+libraries/combat = ExtResource("3_0830c")
+libraries/movement = ExtResource("3_287tu")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1024004475]
+root_node = NodePath("../Visuals")
+tree_root = SubResource("AnimationNodeStateMachine_vt4ob")
+anim_player = NodePath("../AnimationPlayer")
+
+[editable path="Visuals"]
